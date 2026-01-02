@@ -1,6 +1,6 @@
 package mate.academy;
 
-import mate.academy.repository.BookRepository;
+import mate.academy.repository.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
