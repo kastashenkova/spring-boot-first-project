@@ -3,6 +3,7 @@ package mate.academy.repository;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
+import mate.academy.exception.DataProcessingException;
 import mate.academy.model.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,7 +34,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (tx != null) {
                 tx.rollback();
             }
-            throw new RuntimeException("Could not save book: " + book, e);
+            throw new DataProcessingException("Could not save book: " + book, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -49,7 +50,7 @@ public class BookRepositoryImpl implements BookRepository {
             criteriaQuery.from(Book.class);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Could not find all books", e);
+            throw new DataProcessingException("Could not find all books", e);
         }
     }
 
@@ -61,7 +62,7 @@ public class BookRepositoryImpl implements BookRepository {
                     .setParameter("id", id)
                     .uniqueResultOptional();
         } catch (Exception e) {
-            throw new RuntimeException("Could not find book by id: " + id, e);
+            throw new DataProcessingException("Could not find book by id: " + id, e);
         }
     }
 }
