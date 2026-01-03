@@ -6,7 +6,6 @@ import mate.academy.dto.BookDto;
 import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.service.BookService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,7 +53,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public Page<BookDto> search(BookSearchParameters searchParameters, Pageable pageable) {
+    public List<BookDto> search(BookSearchParameters searchParameters, Pageable pageable) {
         return bookService.search(searchParameters, pageable);
     }
 }
