@@ -1,6 +1,7 @@
 package mate.academy.repository;
 
 import java.util.List;
+import java.util.Optional;
 import mate.academy.exception.DataProcessingException;
 import mate.academy.model.Book;
 import org.hibernate.Session;
@@ -47,6 +48,18 @@ public class BookRepositoryImpl implements BookRepository {
                     .getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Could not find all books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery(
+                    "FROM Book b WHERE b.id = :id", Book.class)
+                    .setParameter("id", id)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataProcessingException("Could not find book by id: " + id, e);
         }
     }
 }
