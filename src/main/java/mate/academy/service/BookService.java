@@ -4,6 +4,7 @@ import java.util.List;
 import mate.academy.dto.BookDto;
 import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.repository.book.BookSearchParameters;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BookService {
@@ -17,5 +18,5 @@ public interface BookService {
 
     void deleteBookById(Long id);
 
-    List<BookDto> search(BookSearchParameters searchParameters, Pageable pageable);
+    Page<BookDto> search(BookSearchParameters searchParameters, Pageable pageable);
 }
