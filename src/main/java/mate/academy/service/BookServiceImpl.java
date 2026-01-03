@@ -10,6 +10,7 @@ import mate.academy.model.Book;
 import mate.academy.repository.book.BookRepository;
 import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.repository.book.BookSpecificationBuilder;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> search(BookSearchParameters searchParameters, Pageable pageable) {
+    public Page<BookDto> search(BookSearchParameters searchParameters, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder
                 .buildSpecification(searchParameters);
         return bookRepository.findAll(bookSpecification, pageable).stream()
