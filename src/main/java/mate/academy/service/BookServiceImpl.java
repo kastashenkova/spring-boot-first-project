@@ -1,6 +1,5 @@
 package mate.academy.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.BookDto;
 import mate.academy.dto.CreateBookRequestDto;
@@ -30,10 +29,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll().stream()
-                .map(bookMapper::toBookDto)
-                .toList();
+    public Page<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
+                .map(bookMapper::toBookDto);
     }
 
     @Override
