@@ -27,8 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String token = getToken(request);
-        boolean isTokenValid = jwtUtil.isValidToken(token);
-        if (token != null && isTokenValid) {
+        if (token != null && jwtUtil.isValidToken(token)) {
             String email = jwtUtil.getEmail(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
