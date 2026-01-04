@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05-insert-roles
+      author: kastashenkova
+      comment: Insert default roles
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: USER
+
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ADMIN
