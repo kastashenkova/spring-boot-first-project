@@ -1,4 +1,4 @@
-package mate.academy.dto.user.annotation;
+package mate.academy.dto.user.registration.annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

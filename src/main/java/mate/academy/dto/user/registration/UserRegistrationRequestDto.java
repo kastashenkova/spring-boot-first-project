@@ -1,10 +1,10 @@
-package mate.academy.dto.user;
+package mate.academy.dto.user.registration;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import mate.academy.dto.user.annotation.FieldMatch;
+import mate.academy.dto.user.registration.annotation.FieldMatch;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
