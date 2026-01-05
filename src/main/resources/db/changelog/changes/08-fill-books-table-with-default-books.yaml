@@ -3,6 +3,7 @@ databaseChangeLog:
       id: 08-fill-books-table-with-default-books
       author: kastashenkova
       changes:
+        # academic
         - insert:
             tableName: books
             columns:
@@ -109,6 +110,275 @@ databaseChangeLog:
               - column:
                   name: description
                   value: "Guide to using UML in Java development"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        # fiction
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "1984"
+              - column:
+                  name: author
+                  value: "George Orwell"
+              - column:
+                  name: isbn
+                  value: "9780451524935"
+              - column:
+                  name: price
+                  value: 18.99
+              - column:
+                  name: description
+                  value: "Dystopian novel about totalitarian control"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "The Hobbit"
+              - column:
+                  name: author
+                  value: "J.R.R. Tolkien"
+              - column:
+                  name: isbn
+                  value: "9780547928227"
+              - column:
+                  name: price
+                  value: 22.50
+              - column:
+                  name: description
+                  value: "Fantasy adventure about a hobbit's journey"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "The Great Gatsby"
+              - column:
+                  name: author
+                  value: "F. Scott Fitzgerald"
+              - column:
+                  name: isbn
+                  value: "9780743273565"
+              - column:
+                  name: price
+                  value: 16.00
+              - column:
+                  name: description
+                  value: "Novel about the American Dream"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        # non-fiction
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Sapiens: A Brief History of Humankind"
+              - column:
+                  name: author
+                  value: "Yuval Noah Harari"
+              - column:
+                  name: isbn
+                  value: "9780062316097"
+              - column:
+                  name: price
+                  value: 25.00
+              - column:
+                  name: description
+                  value: "History of human evolution and civilization"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Atomic Habits"
+              - column:
+                  name: author
+                  value: "James Clear"
+              - column:
+                  name: isbn
+                  value: "9780735211292"
+              - column:
+                  name: price
+                  value: 21.00
+              - column:
+                  name: description
+                  value: "Guide to building good habits and breaking bad ones"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        # children
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Harry Potter and the Philosopher's Stone"
+              - column:
+                  name: author
+                  value: "J.K. Rowling"
+              - column:
+                  name: isbn
+                  value: "9780747532699"
+              - column:
+                  name: price
+                  value: 19.99
+              - column:
+                  name: description
+                  value: "Fantasy story about a young wizard"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Charlotte's Web"
+              - column:
+                  name: author
+                  value: "E.B. White"
+              - column:
+                  name: isbn
+                  value: "9780064400558"
+              - column:
+                  name: price
+                  value: 14.50
+              - column:
+                  name: description
+                  value: "Children's story about friendship and kindness"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Matilda"
+              - column:
+                  name: author
+                  value: "Roald Dahl"
+              - column:
+                  name: isbn
+                  value: "9780142410370"
+              - column:
+                  name: price
+                  value: 15.00
+              - column:
+                  name: description
+                  value: "Story about a brilliant girl with special powers"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        # drama
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Hamlet"
+              - column:
+                  name: author
+                  value: "William Shakespeare"
+              - column:
+                  name: isbn
+                  value: "9780743477123"
+              - column:
+                  name: price
+                  value: 12.99
+              - column:
+                  name: description
+                  value: "Tragedy about the Prince of Denmark"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Death of a Salesman"
+              - column:
+                  name: author
+                  value: "Arthur Miller"
+              - column:
+                  name: isbn
+                  value: "9780140481341"
+              - column:
+                  name: price
+                  value: 14.00
+              - column:
+                  name: description
+                  value: "Drama about the struggles of an aging salesman"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        # poetry
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "The Raven and Other Poems"
+              - column:
+                  name: author
+                  value: "Edgar Allan Poe"
+              - column:
+                  name: isbn
+                  value: "9780486266855"
+              - column:
+                  name: price
+                  value: 11.50
+              - column:
+                  name: description
+                  value: "Collection of classic narrative poems"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Leaves of Grass"
+              - column:
+                  name: author
+                  value: "Walt Whitman"
+              - column:
+                  name: isbn
+                  value: "9780199535738"
+              - column:
+                  name: price
+                  value: 13.99
+              - column:
+                  name: description
+                  value: "Poetry celebrating nature and humanity"
               - column:
                   name: cover_image
                   value: ""

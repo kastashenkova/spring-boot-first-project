@@ -2,7 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: 05-insert-roles
       author: kastashenkova
-      comment: Insert default roles
       changes:
         - insert:
             tableName: roles

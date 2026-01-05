@@ -15,3 +15,11 @@ databaseChangeLog:
       file: db/changelog/changes/07-assign-roles-to-default-users.yaml
   - include:
       file: db/changelog/changes/08-fill-books-table-with-default-books.yaml
+  - include:
+      file: db/changelog/changes/09-create-categories-table.yaml
+  - include:
+      file: db/changelog/changes/10-fill-categories-table-with-default-values.yaml
+  - include:
+      file: db/changelog/changes/11-create-books-categories-table.yaml
+  - include:
+      file: db/changelog/changes/12-assign-categories-to-books.yaml

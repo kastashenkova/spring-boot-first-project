@@ -2,19 +2,35 @@ package mate.academy.mapper;
 
 import mate.academy.config.MapperConfig;
 import mate.academy.dto.book.BookDto;
+import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CreateBookRequestDto;
-import mate.academy.model.Book;
+import mate.academy.model.book.Book;
+import mate.academy.model.book.Category;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
-    BookDto toBookDto(Book book);
+    BookDto toDto(Book book);
 
-    Book toBookEntity(CreateBookRequestDto requestDto);
+    Book toEntity(CreateBookRequestDto requestDto);
 
     @Mapping(target = "id", ignore = true)
     void updateBookFromDto(CreateBookRequestDto requestDto,
                            @MappingTarget Book book);
+
+    BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
+
+    @AfterMapping
+    default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
+        if (book.getCategories() != null) {
+            bookDto.setCategoryIds(
+                    book.getCategories().stream()
+                            .map(Category::getId)
+                            .toList()
+            );
+        }
+    }
 }

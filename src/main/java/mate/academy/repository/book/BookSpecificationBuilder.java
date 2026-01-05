@@ -1,7 +1,7 @@
 package mate.academy.repository.book;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.model.Book;
+import mate.academy.model.book.Book;
 import mate.academy.repository.SpecificationBuilder;
 import mate.academy.repository.SpecificationProviderManager;
 import org.springframework.data.jpa.domain.Specification;
