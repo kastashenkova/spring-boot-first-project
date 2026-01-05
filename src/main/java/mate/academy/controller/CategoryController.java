@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CategoryDto;
+import mate.academy.dto.book.CategoryRequestDto;
 import mate.academy.mapper.CategoryMapper;
 import mate.academy.service.book.BookService;
 import mate.academy.service.category.CategoryService;
@@ -53,7 +54,7 @@ public class CategoryController {
     @Operation(summary = "Create a new category",
             description = "Create a new category")
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto) {
+    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto) {
         return categoryService.save(categoryDto);
     }
 
@@ -62,7 +63,7 @@ public class CategoryController {
             description = "Update an existing category by its id")
     @PreAuthorize("hasRole('ADMIN')")
     public CategoryDto updateCategory(@PathVariable Long id,
-                                  @RequestBody @Valid CategoryDto requestDto) {
+                                  @RequestBody @Valid CategoryRequestDto requestDto) {
         return categoryService.update(id, requestDto);
     }
 
