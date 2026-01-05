@@ -1,6 +1,5 @@
 package mate.academy.model.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,6 +48,5 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     private Set<Category> categories = new HashSet<>();
 }

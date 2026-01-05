@@ -13,11 +13,14 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
+    @Mapping(target = "categoryIds", ignore = true)
     BookDto toDto(Book book);
 
+    @Mapping(target = "categories", ignore = true)
     Book toEntity(CreateBookRequestDto requestDto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "categories", ignore = true)
     void updateBookFromDto(CreateBookRequestDto requestDto,
                            @MappingTarget Book book);
 
