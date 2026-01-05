@@ -4,28 +4,28 @@ databaseChangeLog:
       author: kastashenkova
       changes:
         - insert:
-            tableName: shopping_cart
+            tableName: shopping_carts
             columns:
               - column:
                   name: user_id
                   valueComputed: "(SELECT id FROM users WHERE email = 'admin@example.com')"
 
         - insert:
-            tableName: shopping_cart
+            tableName: shopping_carts
             columns:
               - column:
                   name: user_id
                   valueComputed: "(SELECT id FROM users WHERE email = 'ivan@example.com')"
 
         - insert:
-            tableName: shopping_cart
+            tableName: shopping_carts
             columns:
               - column:
                   name: user_id
                   valueComputed: "(SELECT id FROM users WHERE email = 'olena@example.com')"
 
         - insert:
-            tableName: shopping_cart
+            tableName: shopping_carts
             columns:
               - column:
                   name: user_id

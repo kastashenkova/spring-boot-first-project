@@ -4,11 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.book.BookDto;
-import mate.academy.dto.book.BookQuantityDto;
-import mate.academy.dto.cart.BookToTheShoppingCartDto;
-import mate.academy.dto.cart.CartItemDto;
+import mate.academy.dto.cart.CartItemRequestDto;
 import mate.academy.dto.cart.ShoppingCartDto;
+import mate.academy.dto.cart.UpdateCartItemDto;
 import mate.academy.service.cart.ShoppingCartService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +38,7 @@ public class ShoppingCartController {
     @Operation(summary = "Add book to cart",
             description = "Add book to the shopping cart")
     @PreAuthorize("hasRole('USER')")
-    public BookDto addBookToTheCart(@RequestBody @Valid BookToTheShoppingCartDto request) {
+    public ShoppingCartDto addBookToTheCart(@RequestBody @Valid CartItemRequestDto request) {
         return shoppingCartService.addBook(request);
     }
 
@@ -48,8 +46,8 @@ public class ShoppingCartController {
     @Operation(summary = "Update quantity of a book in the shopping cart",
             description = "Update quantity of a book in the shopping cart  by its id")
     @PreAuthorize("hasRole('USER')")
-    public CartItemDto updateBookQuantityInCart(@PathVariable Long cartItemId,
-                                                @RequestBody @Valid BookQuantityDto request) {
+    public ShoppingCartDto updateBookQuantityInCart(@PathVariable Long cartItemId,
+                                                @RequestBody @Valid UpdateCartItemDto request) {
         return shoppingCartService.updateQuantity(cartItemId, request);
     }
 

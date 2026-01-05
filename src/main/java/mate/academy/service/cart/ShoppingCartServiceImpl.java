@@ -1,11 +1,9 @@
 package mate.academy.service.cart;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.book.BookDto;
-import mate.academy.dto.book.BookQuantityDto;
-import mate.academy.dto.cart.BookToTheShoppingCartDto;
-import mate.academy.dto.cart.CartItemDto;
+import mate.academy.dto.cart.CartItemRequestDto;
 import mate.academy.dto.cart.ShoppingCartDto;
+import mate.academy.dto.cart.UpdateCartItemDto;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.BookMapper;
 import mate.academy.mapper.CartItemMapper;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
@@ -34,29 +33,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartDto getCart() {
+        Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByUserId(getCurrentUser().getId())
-                .orElseThrow(() -> new IllegalStateException(
-                        "Cart not found for user " + getCurrentUser().getId()));
+                .findByUserId(currentUserId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Cart not found for user " + currentUserId));
         return shoppingCartMapper.toDto(cart);
     }
 
-    private User getCurrentUser() throws SecurityException {
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
-            throw new SecurityException("Unauthorized");
-        }
-        return (User) authentication.getPrincipal();
-    }
-
     @Override
-    public BookDto addBook(BookToTheShoppingCartDto request) {
-        User user = getCurrentUser();
+    public ShoppingCartDto addBook(CartItemRequestDto request) {
+        Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByUserId(user.getId())
+                .findByUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Cart not found for user " + user.getId()));
+                        "Cart not found for user " + currentUserId));
         Book book = bookRepository.findById(request.getBookId())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Book not found: " + request.getBookId()));
@@ -75,37 +66,57 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             cart.getCartItems().add(newItem);
         }
         shoppingCartRepository.save(cart);
-        return bookMapper.toDto(book);
+        return shoppingCartMapper.toDto(cart);
     }
 
-    @Transactional
     @Override
-    public CartItemDto updateQuantity(Long cartItemId, BookQuantityDto request) {
-        User user = getCurrentUser();
-        CartItem item = cartItemRepository.findByIdWithCartAndBook(cartItemId)
+    public ShoppingCartDto updateQuantity(Long cartItemId, UpdateCartItemDto request) {
+        Long currentUserId = getCurrentUserId();
+        final ShoppingCart cart = shoppingCartRepository
+                .findByUserId(currentUserId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Cart not found for user " + currentUserId));
+        CartItem item = cartItemRepository
+                .findByIdAndShoppingCartId(cartItemId, currentUserId)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Invalid cart item id: " + cartItemId));
-        if (!item.getShoppingCart().getUser().getId().equals(user.getId())) {
+        if (!item.getShoppingCart().getUser().getId().equals(currentUserId)) {
             throw new SecurityException(
                     "Cart item with id " + cartItemId
-                            + "does not belong to user: " + user.getId());
+                            + "does not belong to user: " + currentUserId);
         }
         item.setQuantity(request.getQuantity());
         cartItemRepository.save(item);
-        return cartItemMapper.toDto(item);
+        return shoppingCartMapper.toDto(cart);
     }
 
     @Override
     public void deleteBook(Long cartItemId) {
-        User user = getCurrentUser();
-        CartItem item = cartItemRepository.findByIdWithCartAndBook(cartItemId)
+        Long currentUserId = getCurrentUserId();
+        CartItem item = cartItemRepository
+                .findByIdAndShoppingCartId(cartItemId, currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart item not found by id: " + cartItemId));
-        if (!item.getShoppingCart().getUser().getId().equals(user.getId())) {
+        if (!item.getShoppingCart().getUser().getId().equals(currentUserId)) {
             throw new SecurityException(
                     "Cart item with id " + cartItemId
-                            + "does not belong to user: " + user.getId());
+                            + "does not belong to user: " + currentUserId);
         }
         cartItemRepository.delete(item);
+    }
+
+    public void addUser(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartRepository.save(shoppingCart);
+    }
+
+    private Long getCurrentUserId() throws SecurityException {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
+            throw new SecurityException("Unauthorized");
+        }
+        return ((User) authentication.getPrincipal()).getId();
     }
 }

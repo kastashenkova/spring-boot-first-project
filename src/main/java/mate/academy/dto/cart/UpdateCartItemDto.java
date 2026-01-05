@@ -6,9 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookToTheShoppingCartDto {
-    @Positive
-    private Long bookId;
+public class UpdateCartItemDto {
     @Positive
     private int quantity;
 }

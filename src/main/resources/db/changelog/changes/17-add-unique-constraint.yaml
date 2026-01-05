@@ -4,6 +4,6 @@ databaseChangeLog:
       author: kastashenkova
       changes:
         - addUniqueConstraint:
-            tableName: shopping_cart
+            tableName: shopping_carts
             columnNames: user_id
             constraintName: uk_shopping_cart_user

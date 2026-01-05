@@ -9,7 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: shopping_cart_id
-                  valueComputed: "(SELECT sc.id FROM shopping_cart sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'ivan@example.com')"
+                  valueComputed: "(SELECT sc.id FROM shopping_carts sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'ivan@example.com')"
               - column:
                   name: book_id
                   valueComputed: "(SELECT id FROM books WHERE title = 'Clean Code')"
@@ -22,7 +22,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: shopping_cart_id
-                  valueComputed: "(SELECT sc.id FROM shopping_cart sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'ivan@example.com')"
+                  valueComputed: "(SELECT sc.id FROM shopping_carts sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'ivan@example.com')"
               - column:
                   name: book_id
                   valueComputed: "(SELECT id FROM books WHERE title = 'The Hobbit')"
@@ -36,7 +36,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: shopping_cart_id
-                  valueComputed: "(SELECT sc.id FROM shopping_cart sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'olena@example.com')"
+                  valueComputed: "(SELECT sc.id FROM shopping_carts sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'olena@example.com')"
               - column:
                   name: book_id
                   valueComputed: "(SELECT id FROM books WHERE title = 'Sapiens: A Brief History of Humankind')"
@@ -49,7 +49,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: shopping_cart_id
-                  valueComputed: "(SELECT sc.id FROM shopping_cart sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'olena@example.com')"
+                  valueComputed: "(SELECT sc.id FROM shopping_carts sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'olena@example.com')"
               - column:
                   name: book_id
                   valueComputed: "(SELECT id FROM books WHERE title = 'Atomic Habits')"
@@ -63,7 +63,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: shopping_cart_id
-                  valueComputed: "(SELECT sc.id FROM shopping_cart sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'vasyl@example.com')"
+                  valueComputed: "(SELECT sc.id FROM shopping_carts sc JOIN users u ON sc.user_id = u.id WHERE u.email = 'vasyl@example.com')"
               - column:
                   name: book_id
                   valueComputed: "(SELECT id FROM books WHERE title = 'Hamlet')"
