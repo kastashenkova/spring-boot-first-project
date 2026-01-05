@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 17-add-unique-constraint
+      author: kastashenkova
+      changes:
+        - addUniqueConstraint:
+            tableName: shopping_cart
+            columnNames: user_id
+            constraintName: uk_shopping_cart_user
