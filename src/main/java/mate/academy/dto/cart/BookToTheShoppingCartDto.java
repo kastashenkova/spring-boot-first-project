@@ -1,14 +1,14 @@
 package mate.academy.dto.cart;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class BookToTheShoppingCartDto {
-    @NotBlank
+    @Positive
     private Long bookId;
-    @NotBlank
+    @Positive
     private int quantity;
 }

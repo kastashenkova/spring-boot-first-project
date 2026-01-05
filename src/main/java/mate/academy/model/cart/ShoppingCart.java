@@ -29,11 +29,13 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-    private Set<CartItem> items = new HashSet<>();
+    @OneToMany(mappedBy = "shoppingCart",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<CartItem> cartItems = new HashSet<>();
     @Column(nullable = false)
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }
