@@ -2,8 +2,8 @@ package mate.academy.service.user;
 
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.user.UserRegistrationRequestDto;
-import mate.academy.dto.user.UserResponseDto;
+import mate.academy.dto.user.registration.UserRegistrationRequestDto;
+import mate.academy.dto.user.registration.UserResponseDto;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.exception.RegistrationException;
 import mate.academy.mapper.UserMapper;
