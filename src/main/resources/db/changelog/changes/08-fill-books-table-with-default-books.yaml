@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08-fill-books-table-with-default-books
+      author: kastashenkova
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Clean Code"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780132350884"
+              - column:
+                  name: price
+                  value: 35.50
+              - column:
+                  name: description
+                  value: "A Handbook of Agile Software Craftsmanship"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "The Clean Coder"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780137081073"
+              - column:
+                  name: price
+                  value: 30.00
+              - column:
+                  name: description
+                  value: "A Code of Conduct for Professional Programmers"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Clean Architecture"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780134494166"
+              - column:
+                  name: price
+                  value: 40.00
+              - column:
+                  name: description
+                  value: "A Craftsman's Guide to Software Structure and Design"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Agile Software Development, Principles, Patterns, and Practices"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780135974445"
+              - column:
+                  name: price
+                  value: 45.00
+              - column:
+                  name: description
+                  value: "Classic book on agile programming and patterns"
+              - column:
+                  name: cover_image
+                  value: ""
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "UML for Java Programmers"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780131304983"
+              - column:
+                  name: price
+                  value: 38.00
+              - column:
+                  name: description
+                  value: "Guide to using UML in Java development"
+              - column:
+                  name: cover_image
+                  value: ""

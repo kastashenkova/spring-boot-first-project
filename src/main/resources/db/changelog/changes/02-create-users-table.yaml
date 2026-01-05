@@ -21,7 +21,7 @@ databaseChangeLog:
                     unique: true
               - column:
                   name: password
-                  type: varchar(35)
+                  type: varchar(100)
                   constraints:
                     nullable: false
               - column:
@@ -37,3 +37,9 @@ databaseChangeLog:
               - column:
                   name: shipping_address
                   type: varchar(255)
+              - column:
+                  name: is_deleted
+                  type: bit
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
