@@ -1,0 +1,179 @@
+databaseChangeLog:
+  - changeSet:
+      id: 21-fill-order-items-table-with-default-data
+      author: kastashenkova
+      changes:
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'ivan@example.com'
+                     AND o.order_date = '2025-11-01T14:30:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780132350884')"
+              - column:
+                  name: quantity
+                  value: 1
+              - column:
+                  name: price
+                  value: 35.50
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'ivan@example.com'
+                     AND o.order_date = '2025-11-01T14:30:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780451524935')"
+              - column:
+                  name: quantity
+                  value: 2
+              - column:
+                  name: price
+                  value: 18.99
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'olena@example.com'
+                     AND o.order_date = '2025-10-05T10:15:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780547928227')"
+              - column:
+                  name: quantity
+                  value: 1
+              - column:
+                  name: price
+                  value: 22.50
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'olena@example.com'
+                     AND o.order_date = '2025-12-05T10:15:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780134494166')"
+              - column:
+                  name: quantity
+                  value: 3
+              - column:
+                  name: price
+                  value: 40.00
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'olena@example.com'
+                     AND o.order_date = '2025-12-05T10:15:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780735211292')"
+              - column:
+                  name: quantity
+                  value: 2
+              - column:
+                  name: price
+                  value: 21.00
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'vasyl@example.com'
+                     AND o.order_date = '2026-01-05T11:13:00')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780486266855')"
+              - column:
+                  name: quantity
+                  value: 1
+              - column:
+                  name: price
+                  value: 11.50
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'vasyl@example.com'
+                     AND o.order_date = '2026-01-05T09:01:00'
+                     AND o.total = 555.50)"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780135974445')"
+              - column:
+                  name: quantity
+                  value: 5
+              - column:
+                  name: price
+                  value: 45.00
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'vasyl@example.com'
+                     AND o.order_date = '2026-01-05T09:01:00'
+                     AND o.total = 555.50)"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780062316097')"
+              - column:
+                  name: quantity
+                  value: 4
+              - column:
+                  name: price
+                  value: 25.00
+
+        - insert:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  valueComputed: "(SELECT o.id FROM orders o
+                     JOIN users u ON o.user_id = u.id
+                     WHERE u.email = 'vasyl@example.com'
+                     AND o.order_date = '2026-01-05T09:01:00'
+                     AND o.total = 10000.00)"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE isbn = '9780743477123')"
+              - column:
+                  name: quantity
+                  value: 50
+              - column:
+                  name: price
+                  value: 12.99

@@ -5,9 +5,7 @@ import mate.academy.dto.cart.CartItemRequestDto;
 import mate.academy.dto.cart.ShoppingCartDto;
 import mate.academy.dto.cart.UpdateCartItemDto;
 import mate.academy.exception.EntityNotFoundException;
-import mate.academy.mapper.BookMapper;
-import mate.academy.mapper.CartItemMapper;
-import mate.academy.mapper.ShoppingCartMapper;
+import mate.academy.mapper.cart.ShoppingCartMapper;
 import mate.academy.model.book.Book;
 import mate.academy.model.cart.CartItem;
 import mate.academy.model.cart.ShoppingCart;
@@ -27,15 +25,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemRepository cartItemRepository;
-    private final CartItemMapper cartItemMapper;
-    private final BookMapper bookMapper;
     private final BookRepository bookRepository;
 
     @Override
     public ShoppingCartDto getCart() {
         Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByUserId(currentUserId)
+                .findByShoppingCartUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         return shoppingCartMapper.toDto(cart);
@@ -45,7 +41,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto addBook(CartItemRequestDto request) {
         Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByUserId(currentUserId)
+                .findByShoppingCartUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         Book book = bookRepository.findById(request.getBookId())
@@ -73,7 +69,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto updateQuantity(Long cartItemId, UpdateCartItemDto request) {
         Long currentUserId = getCurrentUserId();
         final ShoppingCart cart = shoppingCartRepository
-                .findByUserId(currentUserId)
+                .findByShoppingCartUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         CartItem item = cartItemRepository

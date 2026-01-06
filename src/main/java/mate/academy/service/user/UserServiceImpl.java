@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.dto.user.registration.UserRegistrationRequestDto;
 import mate.academy.dto.user.registration.UserResponseDto;
 import mate.academy.exception.RegistrationException;
-import mate.academy.mapper.UserMapper;
+import mate.academy.mapper.user.UserMapper;
 import mate.academy.model.user.Role;
 import mate.academy.model.user.User;
 import mate.academy.repository.user.RoleRepository;
