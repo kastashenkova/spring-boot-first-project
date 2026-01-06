@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-fill-categories-table-with-default-values
+      author: kastashenkova
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Fiction"
+              - column:
+                  name: description
+                  value: "Imaginative stories"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Non-fiction"
+              - column:
+                  name: description
+                  value: "Books based on real facts, people, and events"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Children"
+              - column:
+                  name: description
+                  value: "Books written for children"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Academic"
+              - column:
+                  name: description
+                  value: "Books used for studying, teaching, and research"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Drama"
+              - column:
+                  name: description
+                  value: "Books written in script form for performance"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Poetry"
+              - column:
+                  name: description
+                  value: "Books written in verse form"
