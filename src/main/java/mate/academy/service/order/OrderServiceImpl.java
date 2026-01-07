@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto addOrder(OrderRequestDto request) {
         User user = getCurrentUser();
-        ShoppingCart cart = shoppingCartRepository.findByShoppingCartUserId(user.getId())
+        ShoppingCart cart = shoppingCartRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Shopping cart not found for user: " + user.getId()));
         if (cart.getCartItems() == null || cart.getCartItems().isEmpty()) {

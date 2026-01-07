@@ -31,7 +31,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto getCart() {
         Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByShoppingCartUserId(currentUserId)
+                .findByUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         return shoppingCartMapper.toDto(cart);
@@ -41,7 +41,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto addBook(CartItemRequestDto request) {
         Long currentUserId = getCurrentUserId();
         ShoppingCart cart = shoppingCartRepository
-                .findByShoppingCartUserId(currentUserId)
+                .findByUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         Book book = bookRepository.findById(request.getBookId())
@@ -69,7 +69,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto updateQuantity(Long cartItemId, UpdateCartItemDto request) {
         Long currentUserId = getCurrentUserId();
         final ShoppingCart cart = shoppingCartRepository
-                .findByShoppingCartUserId(currentUserId)
+                .findByUserId(currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart not found for user " + currentUserId));
         CartItem item = cartItemRepository
