@@ -10,6 +10,7 @@ import mate.academy.dto.order.OrderItemDto;
 import mate.academy.dto.order.OrderRequestDto;
 import mate.academy.dto.order.UpdateOrderDto;
 import mate.academy.exception.EntityNotFoundException;
+import mate.academy.exception.OrderProcessingException;
 import mate.academy.mapper.order.OrderItemMapper;
 import mate.academy.mapper.order.OrderMapper;
 import mate.academy.model.cart.CartItem;
@@ -46,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Shopping cart not found for user: " + user.getId()));
         if (cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
-            throw new EntityNotFoundException(
+            throw new OrderProcessingException(
                     "Shopping cart is empty for user: " + user.getId());
         }
         BigDecimal total = BigDecimal.ZERO;
