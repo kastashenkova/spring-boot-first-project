@@ -76,11 +76,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .findByIdAndShoppingCartId(cartItemId, currentUserId)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Invalid cart item id: " + cartItemId));
-        if (!item.getShoppingCart().getUser().getId().equals(currentUserId)) {
-            throw new SecurityException(
-                    "Cart item with id " + cartItemId
-                            + "does not belong to user: " + currentUserId);
-        }
         item.setQuantity(request.getQuantity());
         cartItemRepository.save(item);
         return shoppingCartMapper.toDto(cart);
@@ -93,14 +88,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .findByIdAndShoppingCartId(cartItemId, currentUserId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart item not found by id: " + cartItemId));
-        if (!item.getShoppingCart().getUser().getId().equals(currentUserId)) {
-            throw new SecurityException(
-                    "Cart item with id " + cartItemId
-                            + "does not belong to user: " + currentUserId);
-        }
         cartItemRepository.delete(item);
     }
 
+    @Override
     public void addUser(User user) {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
