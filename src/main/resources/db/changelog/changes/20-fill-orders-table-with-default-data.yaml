@@ -1,0 +1,118 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20-fill-orders-table-with-default-data
+      author: kastashenkova
+      changes:
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'ivan@example.com')"
+              - column:
+                  name: status
+                  value: COMPLETED
+              - column:
+                  name: total
+                  valueNumeric: 71.99
+              - column:
+                  name: order_date
+                  valueDate: 2025-11-01T14:30:00
+              - column:
+                  name: shipping_address
+                  value: "Chernivtsi"
+
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'olena@example.com')"
+              - column:
+                  name: status
+                  value: PENDING
+              - column:
+                  name: total
+                  valueNumeric: 22.50
+              - column:
+                  name: order_date
+                  valueDate: 2025-10-05T10:15:00
+              - column:
+                  name: shipping_address
+                  value: "Kyiv"
+
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'olena@example.com')"
+              - column:
+                  name: status
+                  value: COMPLETED
+              - column:
+                  name: total
+                  valueNumeric: 232.50
+              - column:
+                  name: order_date
+                  valueDate: 2025-12-05T10:15:00
+              - column:
+                  name: shipping_address
+                  value: "Kyiv"
+
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'vasyl@example.com')"
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: total
+                  valueNumeric: 9.50
+              - column:
+                  name: order_date
+                  valueDate: 2026-01-05T11:13:00
+              - column:
+                  name: shipping_address
+                  value: "Kryvyi Rih"
+
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'vasyl@example.com')"
+              - column:
+                  name: status
+                  value: CANCELLED
+              - column:
+                  name: total
+                  valueNumeric: 555.50
+              - column:
+                  name: order_date
+                  valueDate: 2026-01-05T09:01:00
+              - column:
+                  name: shipping_address
+                  value: "Kryvyi Rih"
+
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'vasyl@example.com')"
+              - column:
+                  name: status
+                  value: PENDING
+              - column:
+                  name: total
+                  valueNumeric: 10000.00
+              - column:
+                  name: order_date
+                  valueDate: 2026-01-05T09:01:00
+              - column:
+                  name: shipping_address
+                  value: "Donetsk"

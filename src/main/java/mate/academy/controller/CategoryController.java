@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CategoryDto;
 import mate.academy.dto.book.CategoryRequestDto;
-import mate.academy.mapper.CategoryMapper;
+import mate.academy.mapper.book.CategoryMapper;
 import mate.academy.service.book.BookService;
 import mate.academy.service.category.CategoryService;
 import org.springframework.data.domain.Page;

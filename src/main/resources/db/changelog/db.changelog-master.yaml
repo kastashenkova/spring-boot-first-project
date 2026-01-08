@@ -33,3 +33,11 @@ databaseChangeLog:
       file: db/changelog/changes/16-fill-shopping-carts-with-books.yaml
   - include:
       file: db/changelog/changes/17-add-unique-constraint.yaml
+  - include:
+      file: db/changelog/changes/18-create-orders-table.yaml
+  - include:
+      file: db/changelog/changes/19-create-order-items-table.yaml
+  - include:
+      file: db/changelog/changes/20-fill-orders-table-with-default-data.yaml
+  - include:
+      file: db/changelog/changes/21-fill-order-items-table-with-default-data.yaml
