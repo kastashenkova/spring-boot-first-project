@@ -11,6 +11,7 @@ import mate.academy.model.user.Role;
 import mate.academy.model.user.User;
 import mate.academy.repository.user.RoleRepository;
 import mate.academy.repository.user.UserRepository;
+import mate.academy.service.cart.ShoppingCartService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     @Transactional
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
                         "Role USER not found: " + Role.RoleName.USER));
         user.setRoles(Set.of(defaultRole));
         userRepository.save(user);
+        shoppingCartService.addUser(user);
         return userMapper.toUserResponseDto(user);
     }
 }

@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16-fill-shopping-carts-with-books
+      author: kastashenkova
+      changes:
+        # Ivan
+        - insert:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: shopping_cart_id
+                  valueComputed: "(SELECT id FROM users u WHERE u.email = 'ivan@example.com')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Clean Code')"
+              - column:
+                  name: quantity
+                  value: 2
+
+        - insert:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: shopping_cart_id
+                  valueComputed: "(SELECT id FROM users u WHERE u.email = 'ivan@example.com')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Hobbit')"
+              - column:
+                  name: quantity
+                  value: 1
+
+        # Olena
+        - insert:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: shopping_cart_id
+                  valueComputed: "(SELECT id FROM users u WHERE u.email = 'olena@example.com')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Sapiens: A Brief History of Humankind')"
+              - column:
+                  name: quantity
+                  value: 1
+
+        - insert:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: shopping_cart_id
+                  valueComputed: "(SELECT id FROM users u WHERE u.email = 'olena@example.com')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Atomic Habits')"
+              - column:
+                  name: quantity
+                  value: 3
+
+        # Vasyl
+        - insert:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: shopping_cart_id
+                  valueComputed: "(SELECT id FROM users u WHERE u.email = 'vasyl@example.com')"
+              - column:
+                  name: book_id
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Hamlet')"
+              - column:
+                  name: quantity
+                  value: 1
