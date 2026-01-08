@@ -1,6 +1,7 @@
 package mate.academy.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,5 +21,6 @@ public class CreateBookRequestDto {
     private BigDecimal price;
     private String description;
     private String coverImage;
+    @NotEmpty
     private List<Long> categoryIds;
 }
