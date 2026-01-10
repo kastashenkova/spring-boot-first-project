@@ -1,0 +1,1 @@
+delete from books where id BETWEEN 1 AND 5;

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CategoryDto;
 import mate.academy.dto.book.CategoryRequestDto;
-import mate.academy.mapper.book.CategoryMapper;
 import mate.academy.service.book.BookService;
 import mate.academy.service.category.CategoryService;
 import org.springframework.data.domain.Page;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryMapper categoryMapper;
     private final BookService bookService;
 
     @GetMapping
