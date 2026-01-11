@@ -1,4 +1,4 @@
-package mate.academy.springbootfirstproject.book.controller;
+package mate.academy.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,14 +27,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class CategoryControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -65,10 +68,12 @@ public class CategoryControllerTest {
 
         List<CategoryDto> categories = List.of(fantasy, history,
                 poetry, novel);
-        Page<CategoryDto> expectedPage = new PageImpl<>(categories);
+        Page<CategoryDto> expectedPage = new PageImpl<>(categories,
+                PageRequest.of(0, 4),
+                categories.size());
         when(categoryService.findAll(any(Pageable.class))).thenReturn(expectedPage);
 
-        MvcResult result = mockMvc.perform(get("/api/categories"))
+        MvcResult result = mockMvc.perform(get("/categories"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -87,7 +92,7 @@ public class CategoryControllerTest {
                 .setName("poetry");
         when(categoryService.getById(3L)).thenReturn(expected);
 
-        MvcResult result = mockMvc.perform(get("/api/categories/{id}",
+        MvcResult result = mockMvc.perform(get("/categories/{id}",
                         3L))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -115,7 +120,7 @@ public class CategoryControllerTest {
                                 .setName(requestDto.getName())
                 );
 
-        MvcResult result = mockMvc.perform(post("/api/categories")
+        MvcResult result = mockMvc.perform(post("/categories")
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -151,7 +156,7 @@ public class CategoryControllerTest {
                 );
 
 
-        MvcResult result = mockMvc.perform(put("/api/categories/{id}",
+        MvcResult result = mockMvc.perform(put("/categories/{id}",
                         1L)
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -178,7 +183,7 @@ public class CategoryControllerTest {
                 .setName("history");
         when(categoryService.getById(2L)).thenReturn(expected);
 
-        mockMvc.perform(delete("/api/categories/{id}",
+        mockMvc.perform(delete("/categories/{id}",
                         2L))
                 .andExpect(status().isNoContent());
     }
@@ -193,22 +198,26 @@ public class CategoryControllerTest {
             throws Exception {
         BookDtoWithoutCategoryIds marusiaChurai
                 = new BookDtoWithoutCategoryIds()
+                .setId(1L)
                 .setTitle("Marusia Churai")
                 .setAuthor("Lina Kostenko")
                 .setIsbn("978-000-000000-5");
         BookDtoWithoutCategoryIds historyOfUkraine
                 = new BookDtoWithoutCategoryIds()
+                .setId(2L)
                 .setTitle("Ukraine. A History")
                 .setAuthor("Orest Subtelnuy")
                 .setIsbn("978-000-3747-5");
 
         List<BookDtoWithoutCategoryIds> books
                 = List.of(marusiaChurai, historyOfUkraine);
-        Page<BookDtoWithoutCategoryIds> expectedPage = new PageImpl<>(books);
+        Page<BookDtoWithoutCategoryIds> expectedPage = new PageImpl<>(books,
+                PageRequest.of(0, 2),
+                books.size());
         when(bookService.findAllByCategoryId(eq(2L), any(Pageable.class)))
                 .thenReturn(expectedPage);
 
-        MvcResult result = mockMvc.perform(get("/api/categories/{id}/books",
+        MvcResult result = mockMvc.perform(get("/categories/{id}/books",
                         2L))
                 .andExpect(status().isOk())
                 .andReturn();

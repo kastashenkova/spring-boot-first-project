@@ -1,1 +1,1 @@
-delete from categories where id BETWEEN 1 AND 4;
+delete from categories;

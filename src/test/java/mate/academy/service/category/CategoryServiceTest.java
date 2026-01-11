@@ -1,15 +1,11 @@
-package mate.academy.springbootfirstproject.book.service;
+package mate.academy.service.category;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.List;
 
 import mate.academy.dto.book.*;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.model.book.Category;
-import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.repository.book.category.CategoryRepository;
-import mate.academy.service.category.CategoryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class CategoryServiceTest {
 
     @Autowired
@@ -37,19 +35,19 @@ public class CategoryServiceTest {
     @DisplayName("Create a new Category")
     void save_newCategory_ReturnsNewCategory() {
         CategoryRequestDto history
-                = new CategoryRequestDto().setName("history");
+                = new CategoryRequestDto().setName("historical poetry");
         CategoryDto actual = categoryService.save(history);
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals("history", actual.getName());
+        Assertions.assertEquals("historical poetry", actual.getName());
     }
 
     @Test
     @DisplayName("Find all categories in database")
     void findAll_threeCategories_ReturnsAllCategories() {
         CategoryRequestDto history
-                = new CategoryRequestDto().setName("history");
+                = new CategoryRequestDto().setName("stories");
         CategoryRequestDto fantasy
-                = new CategoryRequestDto().setName("fantasy");
+                = new CategoryRequestDto().setName("fantastic");
         CategoryRequestDto poetry
                 = new CategoryRequestDto().setName("poetry");
         categoryService.save(history);
@@ -65,12 +63,12 @@ public class CategoryServiceTest {
     void getById_existingCategory_ReturnsTheCategory() {
         CategoryRequestDto history
                 = new CategoryRequestDto()
-                .setName("history");
+                .setName("science fiction");
         categoryService.save(history);
         Category savedInDb = categoryRepository.findAll().get(0);
         CategoryDto actual = categoryService.getById(savedInDb.getId());
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals("history", actual.getName());
+        Assertions.assertEquals("science fiction", actual.getName());
     }
 
     @Test

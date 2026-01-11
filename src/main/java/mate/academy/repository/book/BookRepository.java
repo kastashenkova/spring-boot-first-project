@@ -1,6 +1,5 @@
 package mate.academy.repository.book;
 
-import java.util.List;
 import java.util.Optional;
 import mate.academy.model.book.Book;
 import org.springframework.data.domain.Page;

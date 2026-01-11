@@ -1,11 +1,8 @@
-package mate.academy.springbootfirstproject.book.repository;
+package mate.academy.repository.book;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import mate.academy.model.book.Book;
-import mate.academy.repository.book.BookRepository;
-import mate.academy.repository.book.BookSearchParameters;
-import mate.academy.repository.book.BookSpecificationBuilder;
-import mate.academy.repository.book.BookSpecificationProviderManager;
 import mate.academy.repository.book.specification.AuthorSpecificationProvider;
 import mate.academy.repository.book.specification.TitleSpecificationProvider;
 import org.junit.jupiter.api.Assertions;
@@ -19,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
@@ -28,6 +26,7 @@ import org.springframework.test.context.jdbc.Sql;
         AuthorSpecificationProvider.class,
         TitleSpecificationProvider.class
 })
+@ActiveProfiles("test")
 public class BookRepositoryTest {
 
     @Autowired
@@ -125,7 +124,8 @@ public class BookRepositoryTest {
         Book historyOfUkraine = new Book()
                 .setTitle("Ukraine: A History")
                 .setAuthor("Orest Subtelny")
-                .setIsbn("978-080-205-809-6");
+                .setIsbn("978-080-205-809-6")
+                .setPrice(BigDecimal.valueOf(25.99));;
         Book saved = bookRepository.save(historyOfUkraine);
         Optional<Book> actual = bookRepository.findById(saved.getId());
         Assertions.assertTrue(actual.isPresent());

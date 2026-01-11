@@ -1,4 +1,4 @@
-package mate.academy.springbootfirstproject.book.controller;
+package mate.academy.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,14 +26,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class BookControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -77,10 +80,12 @@ public class BookControllerTest {
 
         List<BookDto> books = List.of(interestedInDarkness, foolDance, marusiaChurai,
                 cityPidmohylnyi, citySemenko);
-        Page<BookDto> expectedPage = new PageImpl<>(books);
+        Page<BookDto> expectedPage = new PageImpl<>(books,
+                PageRequest.of(0, 5),
+                books.size());
         when(bookService.findAll(any(Pageable.class))).thenReturn(expectedPage);
 
-        MvcResult result = mockMvc.perform(get("/api/books"))
+        MvcResult result = mockMvc.perform(get("/books"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -101,7 +106,7 @@ public class BookControllerTest {
                 .setIsbn("978-617-679-921-3");
         when(bookService.getBookById(2L)).thenReturn(expected);
 
-        MvcResult result = mockMvc.perform(get("/api/books/{id}",
+        MvcResult result = mockMvc.perform(get("/books/{id}",
                         2L))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -120,11 +125,13 @@ public class BookControllerTest {
         CreateBookRequestDto requestDto = new CreateBookRequestDto()
                 .setTitle("The White Ashes")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-679-921-6");
+                .setIsbn("978-617-679-921-6")
+                .setCategoryIds(List.of(1L, 2L, 3L));
         BookDto expected = new BookDto()
                 .setTitle(requestDto.getTitle())
                 .setAuthor(requestDto.getAuthor())
-                .setIsbn(requestDto.getIsbn());
+                .setIsbn(requestDto.getIsbn())
+                .setCategoryIds(requestDto.getCategoryIds());
         String jsonRequest = objectMapper.writeValueAsString(requestDto);
 
         when(bookService.save(any(CreateBookRequestDto.class)))
@@ -134,9 +141,10 @@ public class BookControllerTest {
                                 .setTitle(requestDto.getTitle())
                                 .setAuthor(requestDto.getAuthor())
                                 .setIsbn(requestDto.getIsbn())
+                                .setCategoryIds(requestDto.getCategoryIds())
                 );
 
-        MvcResult result = mockMvc.perform(post("/api/books")
+        MvcResult result = mockMvc.perform(post("/books")
                         .content(jsonRequest)
                             .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -160,11 +168,13 @@ public class BookControllerTest {
         CreateBookRequestDto requestDto = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested in Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-600-000-0");
+                .setIsbn("978-617-600-000-0")
+                .setCategoryIds(List.of(1L));
         BookDto expected = new BookDto()
                 .setTitle(requestDto.getTitle())
                 .setAuthor(requestDto.getAuthor())
-                .setIsbn(requestDto.getIsbn());
+                .setIsbn(requestDto.getIsbn())
+                .setCategoryIds(List.of(1L));
         String jsonRequest = objectMapper.writeValueAsString(requestDto);
 
         when(bookService.updateBookById(eq(1L), any(CreateBookRequestDto.class)))
@@ -177,7 +187,7 @@ public class BookControllerTest {
                 );
 
 
-        MvcResult result = mockMvc.perform(put("/api/books/{id}", 1L)
+        MvcResult result = mockMvc.perform(put("/books/{id}", 1L)
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -204,7 +214,7 @@ public class BookControllerTest {
                 .setIsbn("978-617-679-921-3");
         when(bookService.getBookById(2L)).thenReturn(expected);
 
-        mockMvc.perform(delete("/api/books/{id}",
+        mockMvc.perform(delete("/books/{id}",
                         2L))
                 .andExpect(status().isNoContent());
     }
@@ -226,11 +236,13 @@ public class BookControllerTest {
                 .setIsbn("978-617-679-921-3");
 
         List<BookDto> books = List.of(interestedInDarkness, foolDance);
-        Page<BookDto> expectedPage = new PageImpl<>(books);
+        Page<BookDto> expectedPage = new PageImpl<>(books,
+                PageRequest.of(0,2),
+                books.size());
         when(bookService.search(any(BookSearchParameters.class),
                 any(Pageable.class))).thenReturn(expectedPage);
 
-        MvcResult result = mockMvc.perform(get("/api/books/search")
+        MvcResult result = mockMvc.perform(get("/books/search")
                         .param("authors", "Illarion Pavliuk"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -257,11 +269,13 @@ public class BookControllerTest {
                 .setIsbn("978-617-679-840-6");
 
         List<BookDto> books = List.of(cityPidmohylnyi, citySemenko);
-        Page<BookDto> expectedPage = new PageImpl<>(books);
+        Page<BookDto> expectedPage = new PageImpl<>(books,
+                PageRequest.of(0, 2),
+                books.size());
         when(bookService.search(any(BookSearchParameters.class),
                 any(Pageable.class))).thenReturn(expectedPage);
 
-        MvcResult result = mockMvc.perform(get("/api/books/search")
+        MvcResult result = mockMvc.perform(get("/books/search")
                         .param("titles", "The City"))
                 .andExpect(status().isOk())
                 .andReturn();

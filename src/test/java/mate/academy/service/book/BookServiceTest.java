@@ -1,18 +1,16 @@
-package mate.academy.springbootfirstproject.book.service;
+package mate.academy.service.book;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.math.BigDecimal;
 import java.util.List;
 import mate.academy.dto.book.BookDto;
 import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CreateBookRequestDto;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.model.book.Category;
-import mate.academy.repository.book.BookRepository;
 import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.repository.book.category.CategoryRepository;
-import mate.academy.service.book.BookService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,24 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-public class BookServiceTest {
+@ActiveProfiles("test")
+@Transactional
+class BookServiceTest {
 
     @Autowired
     private BookService bookService;
 
     @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
     private CategoryRepository categoryRepository;
-
-    @AfterEach
-    void tearDown() {
-        bookRepository.deleteAll();
-        categoryRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("Create a new Book")
@@ -49,6 +42,7 @@ public class BookServiceTest {
                 .setTitle("New Book")
                 .setAuthor("New Author")
                 .setIsbn("New-isbn")
+                .setPrice(BigDecimal.TEN)
                 .setCategoryIds(List.of(history.getId(), poetry.getId()));
 
         BookDto actual = bookService.save(requestDto);
@@ -68,15 +62,18 @@ public class BookServiceTest {
         CreateBookRequestDto book1 = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested In Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("isbn-1");
+                .setIsbn("isbn-1")
+                .setPrice(BigDecimal.TEN);
         CreateBookRequestDto book2 = new CreateBookRequestDto()
                 .setTitle("The Fool's Dance")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("isbn-2");
+                .setIsbn("isbn-2")
+                .setPrice(BigDecimal.TEN);
         CreateBookRequestDto book3 = new CreateBookRequestDto()
                 .setTitle("Marusia Churai")
                 .setAuthor("Lina Kostenko")
-                .setIsbn("isbn-3");
+                .setIsbn("isbn-3")
+                .setPrice(BigDecimal.TEN);
 
         bookService.save(book1);
         bookService.save(book2);
@@ -94,7 +91,8 @@ public class BookServiceTest {
         CreateBookRequestDto requestDto = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested In Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("isbn-test");
+                .setIsbn("isbn-test-get-by-id")
+                .setPrice(BigDecimal.TEN);
 
         BookDto savedBook = bookService.save(requestDto);
 
@@ -123,14 +121,16 @@ public class BookServiceTest {
         CreateBookRequestDto createDto = new CreateBookRequestDto()
                 .setTitle("Original Book")
                 .setAuthor("Original Author")
-                .setIsbn("original-isbn");
+                .setIsbn("original-isbn")
+                .setPrice(BigDecimal.TEN);
 
         BookDto savedBook = bookService.save(createDto);
 
         CreateBookRequestDto updateDto = new CreateBookRequestDto()
                 .setTitle("Updated Book")
                 .setAuthor("Updated Author")
-                .setIsbn("updated-isbn");
+                .setIsbn("updated-isbn")
+                .setPrice(BigDecimal.TEN);
 
         BookDto updatedBook = bookService.updateBookById(savedBook.getId(), updateDto);
 
@@ -148,7 +148,8 @@ public class BookServiceTest {
         CreateBookRequestDto requestDto = new CreateBookRequestDto()
                 .setTitle("New Book")
                 .setAuthor("New Author")
-                .setIsbn("New-isbn");
+                .setIsbn("New-isbn")
+                .setPrice(BigDecimal.TEN);
 
         Exception exception = assertThrows(EntityNotFoundException.class,
                 () -> bookService.updateBookById(nonExistingBookId, requestDto));
@@ -163,7 +164,8 @@ public class BookServiceTest {
         CreateBookRequestDto createDto = new CreateBookRequestDto()
                 .setTitle("Book")
                 .setAuthor("Author")
-                .setIsbn("isbn");
+                .setIsbn("isbn")
+                .setPrice(BigDecimal.TEN);
 
         BookDto savedBook = bookService.save(createDto);
 
@@ -172,6 +174,7 @@ public class BookServiceTest {
                 .setTitle("Updated Book")
                 .setAuthor("Updated Author")
                 .setIsbn("updated-isbn")
+                .setPrice(BigDecimal.TEN)
                 .setCategoryIds(List.of(nonExistingCategoryId));
 
         Exception exception = assertThrows(EntityNotFoundException.class,
@@ -187,7 +190,8 @@ public class BookServiceTest {
         CreateBookRequestDto requestDto = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested In Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("isbn-test");
+                .setIsbn("isbn-test")
+                .setPrice(BigDecimal.TEN);
 
         BookDto savedBook = bookService.save(requestDto);
         Long bookId = savedBook.getId();
@@ -218,22 +222,26 @@ public class BookServiceTest {
         CreateBookRequestDto book1 = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested in Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-679-847-6");
+                .setIsbn("978-617-6229-847-6")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book2 = new CreateBookRequestDto()
                 .setTitle("The Fool's Dance")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-679-921-3");
+                .setIsbn("978-617-679-5529-3")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book3 = new CreateBookRequestDto()
                 .setTitle("Marusia Churai")
                 .setAuthor("Lina Kostenko")
-                .setIsbn("978-000-000000-5");
+                .setIsbn("978-000-5")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book4 = new CreateBookRequestDto()
                 .setTitle("The City")
                 .setAuthor("Myhail Semenko")
-                .setIsbn("978-617-679-840-6");
+                .setIsbn("978-617-679-84444-6")
+                .setPrice(BigDecimal.TEN);
 
         bookService.save(book1);
         bookService.save(book2);
@@ -255,22 +263,26 @@ public class BookServiceTest {
         CreateBookRequestDto book1 = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested in Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-679-847-6");
+                .setIsbn("978-617-679-847-6")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book2 = new CreateBookRequestDto()
                 .setTitle("Marusia Churai")
                 .setAuthor("Lina Kostenko")
-                .setIsbn("978-000-000000-5");
+                .setIsbn("978-000-000000-5")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book3 = new CreateBookRequestDto()
                 .setTitle("The City")
                 .setAuthor("Myhail Semenko")
-                .setIsbn("978-617-679-840-6");
+                .setIsbn("978-617-679-840-6")
+                .setPrice(BigDecimal.TEN);
 
         CreateBookRequestDto book4 = new CreateBookRequestDto()
                 .setTitle("The City")
                 .setAuthor("Valerian Pidmohylnyi")
-                .setIsbn("978-0000000001");
+                .setIsbn("978-0000000001")
+                .setPrice(BigDecimal.TEN);
 
         bookService.save(book1);
         bookService.save(book2);
@@ -290,24 +302,27 @@ public class BookServiceTest {
     @DisplayName("Find all books in one category")
     void findAllByCategoryId_fantasyBooks_ReturnsBooks() {
         Category fantasy = categoryRepository.save(new Category().setName("fantasy"));
-        Category history = categoryRepository.save(new Category().setName("history"));
+        Category history = categoryRepository.save(new Category().setName("historical poetry"));
 
         CreateBookRequestDto book1 = new CreateBookRequestDto()
                 .setTitle("I See You Are Interested in Darkness")
                 .setAuthor("Illarion Pavliuk")
-                .setIsbn("978-617-679-847-6")
+                .setIsbn("978-617-679-8400-6")
+                .setPrice(BigDecimal.TEN)
                 .setCategoryIds(List.of(fantasy.getId()));
 
         CreateBookRequestDto book2 = new CreateBookRequestDto()
                 .setTitle("The Fool's Dance")
                 .setAuthor("Illarion Pavliuk")
                 .setIsbn("978-617-679-921-3")
+                .setPrice(BigDecimal.TEN)
                 .setCategoryIds(List.of(fantasy.getId()));
 
         CreateBookRequestDto book3 = new CreateBookRequestDto()
                 .setTitle("Marusia Churai")
                 .setAuthor("Lina Kostenko")
-                .setIsbn("978-000-000000-5")
+                .setIsbn("978-5")
+                .setPrice(BigDecimal.TEN)
                 .setCategoryIds(List.of(history.getId()));
 
         bookService.save(book1);
