@@ -1,11 +1,13 @@
 package mate.academy.repository.book;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 import mate.academy.model.book.Book;
 import mate.academy.repository.book.specification.AuthorSpecificationProvider;
 import mate.academy.repository.book.specification.TitleSpecificationProvider;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class BookRepositoryTest {
     void findAll_fiveBooks_ReturnsAllBooks() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Book> actual = bookRepository.findAll(pageable);
-        Assertions.assertEquals(5, actual.getTotalElements());
+        assertEquals(5, actual.getTotalElements());
     }
 
     @Test
@@ -66,7 +68,7 @@ public class BookRepositoryTest {
                 .buildSpecification(searchParameter);
         Pageable pageable = PageRequest.of(0, 10);
         Page<Book> actual = bookRepository.findAll(bookSpecification, pageable);
-        Assertions.assertEquals(2, actual.getTotalElements());
+        assertEquals(2, actual.getTotalElements());
     }
 
     @Test
@@ -87,7 +89,7 @@ public class BookRepositoryTest {
                 .buildSpecification(searchParameter);
         Pageable pageable = PageRequest.of(0, 10);
         Page<Book> actual = bookRepository.findAll(bookSpecification, pageable);
-        Assertions.assertEquals(2, actual.getTotalElements());
+        assertEquals(2, actual.getTotalElements());
     }
 
     @Test
@@ -109,7 +111,7 @@ public class BookRepositoryTest {
     void findAllByCategories_Id_fantasyCategory_ReturnsAllBooksWithinSpecificCategory() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Book> actual = bookRepository.findAllByCategories_Id(1L, pageable);
-        Assertions.assertEquals(2, actual.getTotalElements());
+        assertEquals(2, actual.getTotalElements());
     }
 
     @Test
@@ -128,8 +130,8 @@ public class BookRepositoryTest {
                 .setPrice(BigDecimal.valueOf(25.99));;
         Book saved = bookRepository.save(historyOfUkraine);
         Optional<Book> actual = bookRepository.findById(saved.getId());
-        Assertions.assertTrue(actual.isPresent());
+        assertTrue(actual.isPresent());
         Optional<Book> expected = Optional.of(historyOfUkraine);
-        Assertions.assertEquals(expected.get().getTitle(), actual.get().getTitle());
+        assertEquals(expected.get().getTitle(), actual.get().getTitle());
     }
 }

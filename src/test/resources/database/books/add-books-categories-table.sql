@@ -1,4 +1,3 @@
--- Припустимо, що після вставки categories та books, їх id будуть 1,2,3...
 INSERT INTO books_categories (book_id, category_id)
 SELECT b.id, c.id FROM books b, categories c
 WHERE b.isbn = '978-617-679-847-6' AND c.name = 'Fantasy';

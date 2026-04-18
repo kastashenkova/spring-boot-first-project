@@ -1,13 +1,16 @@
 package mate.academy.service.category;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mate.academy.dto.book.*;
+import mate.academy.dto.book.CategoryDto;
+import mate.academy.dto.book.CategoryRequestDto;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.model.book.Category;
 import mate.academy.repository.book.category.CategoryRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +40,8 @@ public class CategoryServiceTest {
         CategoryRequestDto history
                 = new CategoryRequestDto().setName("historical poetry");
         CategoryDto actual = categoryService.save(history);
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals("historical poetry", actual.getName());
+        assertNotNull(actual);
+        assertEquals("historical poetry", actual.getName());
     }
 
     @Test
@@ -54,8 +57,8 @@ public class CategoryServiceTest {
         categoryService.save(fantasy);
         categoryService.save(poetry);
         Page<CategoryDto> actual = categoryService.findAll(Pageable.unpaged());
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals(3, actual.getTotalElements());
+        assertNotNull(actual);
+        assertEquals(3, actual.getTotalElements());
     }
 
     @Test
@@ -67,8 +70,8 @@ public class CategoryServiceTest {
         categoryService.save(history);
         Category savedInDb = categoryRepository.findAll().get(0);
         CategoryDto actual = categoryService.getById(savedInDb.getId());
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals("science fiction", actual.getName());
+        assertNotNull(actual);
+        assertEquals("science fiction", actual.getName());
     }
 
     @Test
@@ -78,7 +81,7 @@ public class CategoryServiceTest {
         Exception exception = assertThrows(EntityNotFoundException.class,
                 () -> categoryService.getById(nonExistingCategoryId));
         String expectedMessage = "Cannot find category by id: " + nonExistingCategoryId;
-        Assertions.assertEquals(expectedMessage, exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -91,8 +94,8 @@ public class CategoryServiceTest {
                 .setName("updated");
         Category savedInDb = categoryRepository.findAll().get(0);
         CategoryDto updated = categoryService.update(savedInDb.getId(), updateDto);
-        Assertions.assertNotNull(updated);
-        Assertions.assertEquals("updated", updated.getName());
+        assertNotNull(updated);
+        assertEquals("updated", updated.getName());
     }
 
     @Test
@@ -104,7 +107,7 @@ public class CategoryServiceTest {
         Exception exception = assertThrows(EntityNotFoundException.class,
                 () -> categoryService.update(nonExistingCategoryId, requestDto));
         String expectedMessage = "Cannot update category by id: " + nonExistingCategoryId;
-        Assertions.assertEquals(expectedMessage, exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -118,7 +121,7 @@ public class CategoryServiceTest {
         categoryService.deleteById(categoryId);
         Exception exception = assertThrows(EntityNotFoundException.class,
                 () -> categoryService.getById(categoryId));
-        Assertions.assertTrue(exception.getMessage().contains("Cannot find category by id"));
+        assertTrue(exception.getMessage().contains("Cannot find category by id"));
     }
 
     @Test
@@ -128,6 +131,6 @@ public class CategoryServiceTest {
         Exception exception = assertThrows(EntityNotFoundException.class,
                 () -> categoryService.deleteById(nonExistingCategoryId));
         String expectedMessage = "Cannot delete category by id: " + nonExistingCategoryId;
-        Assertions.assertEquals(expectedMessage, exception.getMessage());
+        assertEquals(expectedMessage, exception.getMessage());
     }
 }

@@ -8,6 +8,7 @@ import mate.academy.dto.book.BookDto;
 import mate.academy.dto.book.CreateBookRequestDto;
 import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.service.book.BookService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class BookController {
             description = "Get a list of all available books")
     @PreAuthorize("hasRole('USER')")
     public Page<BookDto> getAll(Pageable pageable) {
-        return bookService.findAll(pageable);
+        return bookService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class BookController {
     @Operation(summary = "Create a new book",
             description = "Create a new book")
     @PreAuthorize("hasRole('ADMIN')")
-    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) throws BadRequestException {
         return bookService.save(bookDto);
     }
 

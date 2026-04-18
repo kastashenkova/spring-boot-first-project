@@ -80,6 +80,6 @@ public class CategoryController {
     @PreAuthorize("hasRole('USER')")
     public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(
             @PathVariable Long id, Pageable pageable) {
-        return bookService.findAllByCategoryId(id, pageable);
+        return bookService.getAllByCategoryId(id, pageable);
     }
 }
