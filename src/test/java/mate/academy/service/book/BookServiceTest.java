@@ -250,7 +250,7 @@ class BookServiceTest {
 
     @Test
     @DisplayName("Returns error in case of trying to update book with non-existing category")
-    void updateBookById_nonExistingCategory_ThrowsException() throws BadRequestException {
+    void updateBookById_nonExistingCategory_ThrowsException() {
         Long nonExistingBookId = 9999L;
 
         CreateBookRequestDto requestDto = new CreateBookRequestDto()

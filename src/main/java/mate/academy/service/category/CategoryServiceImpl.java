@@ -7,6 +7,7 @@ import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.book.CategoryMapper;
 import mate.academy.model.book.Category;
 import mate.academy.repository.book.category.CategoryRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public Page<CategoryDto> findAll(Pageable pageable) {
+    public Page<CategoryDto> getAll(Pageable pageable) {
         return categoryRepository.findAll(pageable)
                 .map(categoryMapper::toDto);
     }
@@ -32,7 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryRequestDto categoryDto) {
+    public CategoryDto save(CategoryRequestDto categoryDto) throws BadRequestException {
+        if (categoryDto.getName() == null) {
+            throw new BadRequestException("Category name is required");
+        }
         Category category = categoryMapper.toEntity(categoryDto);
         categoryRepository.save(category);
         return categoryMapper.toDto(category);

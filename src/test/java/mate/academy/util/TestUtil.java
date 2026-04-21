@@ -50,4 +50,16 @@ public class TestUtil {
                 .setName("Fantasy")
                 .setDescription("Fantasy books");
     }
+
+    public static CategoryDto categoryDtoHistory() {
+        return new CategoryDto()
+                .setName("History")
+                .setDescription("History books");
+    }
+
+    public static CategoryDto categoryDtoFiction() {
+        return new CategoryDto()
+                .setName("Fiction")
+                .setDescription("Fiction books");
+    }
 }
