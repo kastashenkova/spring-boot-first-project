@@ -14,6 +14,7 @@ import mate.academy.repository.book.BookRepository;
 import mate.academy.repository.book.BookSearchParameters;
 import mate.academy.repository.book.BookSpecificationBuilder;
 import mate.academy.repository.book.category.CategoryRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,7 +29,13 @@ public class BookServiceImpl implements BookService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public BookDto save(CreateBookRequestDto requestDto) {
+    public BookDto save(CreateBookRequestDto requestDto) throws BadRequestException {
+        if (requestDto.getTitle() == null
+                || requestDto.getAuthor() == null
+                || requestDto.getIsbn() == null) {
+            throw new BadRequestException("Obligatory fields are required: "
+                    + "title, author, isbn" + requestDto);
+        }
         Book book = bookMapper.toEntity(requestDto);
         if (requestDto.getCategoryIds() != null && !requestDto.getCategoryIds().isEmpty()) {
             Set<Category> categories = new HashSet<>(
@@ -43,7 +50,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<BookDto> findAll(Pageable pageable) {
+    public Page<BookDto> getAll(Pageable pageable) {
         return bookRepository.findAll(pageable)
                 .map(bookMapper::toDto);
     }
@@ -95,7 +102,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<BookDtoWithoutCategoryIds> findAllByCategoryId(Long id, Pageable pageable) {
+    public Page<BookDtoWithoutCategoryIds> getAllByCategoryId(Long id, Pageable pageable) {
+        if (categoryRepository.findById(id).isEmpty()) {
+            throw new EntityNotFoundException("Cannot category by id: " + id);
+        }
         return bookRepository.findAllByCategories_Id(id, pageable)
                 .map(bookMapper::toDtoWithoutCategories);
     }

@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.dto.book.CategoryDto;
 import mate.academy.dto.book.CategoryRequestDto;
-import mate.academy.mapper.book.CategoryMapper;
 import mate.academy.service.book.BookService;
 import mate.academy.service.category.CategoryService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryMapper categoryMapper;
     private final BookService bookService;
 
     @GetMapping
@@ -38,7 +37,7 @@ public class CategoryController {
             description = "Get a list of all available categories")
     @PreAuthorize("hasRole('USER')")
     public Page<CategoryDto> getAll(Pageable pageable) {
-        return categoryService.findAll(pageable);
+        return categoryService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -54,7 +53,8 @@ public class CategoryController {
     @Operation(summary = "Create a new category",
             description = "Create a new category")
     @PreAuthorize("hasRole('ADMIN')")
-    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto) {
+    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto)
+            throws BadRequestException {
         return categoryService.save(categoryDto);
     }
 
@@ -82,6 +82,6 @@ public class CategoryController {
     @PreAuthorize("hasRole('USER')")
     public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(
             @PathVariable Long id, Pageable pageable) {
-        return bookService.findAllByCategoryId(id, pageable);
+        return bookService.getAllByCategoryId(id, pageable);
     }
 }
