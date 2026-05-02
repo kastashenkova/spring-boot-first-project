@@ -43,9 +43,3 @@ databaseChangeLog:
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
-              - column:
-                  name: is_deleted
-                  type: bit
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
