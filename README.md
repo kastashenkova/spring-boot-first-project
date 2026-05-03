@@ -123,6 +123,6 @@ The application has been deployed through AWS.
 
 Swagger documentation is available at http://3.82.41.71/api/swagger-ui/index.html
 
-## 🎥 Full Demo Video
+## 🎥 Demo Video
 
 See here: 
