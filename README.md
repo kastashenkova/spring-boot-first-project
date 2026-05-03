@@ -8,4 +8,4 @@
 ## Live Demo
 The application is deployed through `AWS`.
 
-Documentation is available at http://13.221.33.34/api/swagger-ui/index.html
+Documentation is available at http://3.82.41.71/api/swagger-ui/index.html
