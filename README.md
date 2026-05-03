@@ -18,11 +18,11 @@ Let's explore online shopping with the help of books together! Here you will fin
 - Docker and Swagger usage
 - Testing ![Line Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)
   
-<img width="500" height="267" alt="Знімок екрана 2026-04-18 115638" src="https://github.com/user-attachments/assets/0377e6b3-afc2-4970-8934-5ca24f1544fd" />
+<img width="964" height="514" alt="Знімок екрана 2026-04-18 115638" src="https://github.com/user-attachments/assets/730290e0-84e7-4b84-bd70-1e9690ad651a" />
 
 - CI/CD checkstyle pipeline
 
-<img width="500" height="86" alt="image" src="https://github.com/user-attachments/assets/f03e700b-7e27-4a7c-953b-c416577b4475" />
+<img width="799" height="138" alt="Знімок екрана 2026-05-03 171047" src="https://github.com/user-attachments/assets/a197450d-5f64-4d83-82cd-3cb687176739" />
 
 ## ⚡ Program opportunities
 #### Things Shoppers Can Do
@@ -107,6 +107,17 @@ Let's explore online shopping with the help of books together! Here you will fin
 - **Tests integration**: it requires you to be attentive while changing something in code since you can ruin both unit and integrative tests
 - **AWS deployment**: consider your repository, IAM user, RDS database, ECR, EC2 instance and security variables are corresponding in order to publish and update project effectively
 
+## 👣 Postman imitation
+Explore API endpoints collection here:
+
+Steps to reproduce below.
+1. Import the collection — Open Postman, click `Import`, and select the provided `.json` collection file.
+2. Set up environment variables — Configure the required variables in a `Postman Environment` to match your local or remote setup.
+3. Authenticate — Run the authentication request first to obtain a token.
+4. Explore available requests — Browse the collection folders to find grouped endpoints; each request includes a description of its purpose and expected parameters.
+5. Send requests — Select any request, adjust path parameters or the request body as needed, click `Send` to interact with the API directly.
+6. Use it for testing — The collection can be run as a full test suite via the `Collection Runner` or with `Newman` for automated testing.
+
 ## 🚀 Demo & Documentation API
 The application has been deployed through AWS.
 
@@ -114,4 +125,4 @@ Swagger documentation is available at http://3.82.41.71/api/swagger-ui/index.htm
 
 ## 🎥 Full Demo Video
 
-See here 
+See here: 
