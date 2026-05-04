@@ -107,21 +107,26 @@ Let's explore online shopping with the help of books together! Here you will fin
 - **Tests integration**: it requires you to be attentive while changing something in code since you can ruin both unit and integrative tests
 - **AWS deployment**: consider your repository, IAM user, RDS database, ECR, EC2 instance and security variables are corresponding in order to publish and update project effectively
 
-## 👣 Postman imitation
-Explore API endpoints collection here:
+## 👣 Postman API
+**API endpoints collection** is available at https://www.postman.com/astashenkova-katya-2138811/bookstore-app
+
+**Documentation** is available at https://documenter.getpostman.com/view/51183420/2sBXqKqLVH
 
 Steps to reproduce below.
-1. Import the collection — Open Postman, click `Import`, and select the provided `.json` collection file.
-2. Set up environment variables — Configure the required variables in a `Postman Environment` to match your local or remote setup.
-3. Authenticate — Run the authentication request first to obtain a token.
-4. Explore available requests — Browse the collection folders to find grouped endpoints; each request includes a description of its purpose and expected parameters.
-5. Send requests — Select any request, adjust path parameters or the request body as needed, click `Send` to interact with the API directly.
-6. Use it for testing — The collection can be run as a full test suite via the `Collection Runner` or with `Newman` for automated testing.
+1. **Authenticate** — Run the authentication request first to obtain a token
+2. **Connect Google Calendar** — Run the authentication request first in order to get your connection link, past this link into your browser and select your email, after successfull message return back
+3. **Explore available requests** — Browse the collection folders to find grouped endpoints; each request includes a description of its purpose and expected parameters
+4. **Send requests** — Select any request, adjust path parameters or the request body as needed, click `Send` to interact with the API directly
+5. **Use it for testing** — The collection can be run as a full test suite via the `Collection Runner` or with `Newman` for automated testing
 
-## 🚀 Demo & Documentation API
-The application has been deployed through AWS.
+## 🚀 Swagger API
+**Documentation API** is available at http://3.82.41.71/api/swagger-ui/index.html
 
-Swagger documentation is available at http://3.82.41.71/api/swagger-ui/index.html
+Steps to reproduce below.
+1. **Authenticate** — Run the authentication request first to obtain a token
+2. **Connect Google Calendar** — Run the authentication request first in order to get your connection link, past this link into your browser and select your email, after successfull message return back
+3. **Explore available requests** — Each controller includes a short description of its purpose
+4. **Send requests** — Select any request, click `Try it out`, adjust path parameters or the request body as needed, click `Execute` to interact with the API directly
 
 ## 🎥 Demo Video
 
